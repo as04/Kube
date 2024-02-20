@@ -1,0 +1,136 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message API</title>
+</head>
+<body>
+    <h1>Message API</h1>
+    
+    <h2>Create Message</h2>
+    <form action="/create" method="POST">
+        <label for="account_id">Account ID:</label><br>
+        <input type="text" id="account_id" name="account_id"><br>
+        <label for="sender_number">Sender Number:</label><br>
+        <input type="text" id="sender_number" name="sender_number"><br>
+        <label for="receiver_number">Receiver Number:</label><br>
+        <input type="text" id="receiver_number" name="receiver_number"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <h2>Search Messages</h2>
+    <form action="/search" method="GET">
+        <label for="message_id">Message ID:</label><br>
+        <input type="text" id="message_id" name="message_id"><br>
+        <label for="sender_number">Sender Number:</label><br>
+        <input type="text" id="sender_number" name="sender_number"><br>
+        <label for="receiver_number">Receiver Number:</label><br>
+        <input type="text" id="receiver_number" name="receiver_number"><br><br>
+        <input type="submit" value="Search">
+    </form>
+
+    <h2>Get Messages by Account ID</h2>
+    <form action="/get/messages/<account_id>" method="GET">
+        <label for="account_id_get">Account ID:</label><br>
+        <input type="text" id="account_id_get" name="account_id"><br><br>
+        <input type="submit" value="Get Messages">
+    </form>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message API</title>
+</head>
+<body>
+    <h1>Message API</h1>
+    
+    <h2>Create Message</h2>
+    <form id="createMessageForm">
+        <label for="account_id">Account ID:</label><br>
+        <input type="text" id="account_id" name="account_id"><br>
+        <label for="sender_number">Sender Number:</label><br>
+        <input type="text" id="sender_number" name="sender_number"><br>
+        <label for="receiver_number">Receiver Number:</label><br>
+        <input type="text" id="receiver_number" name="receiver_number"><br>
+        <label for="message_id">Message ID:</label><br>
+        <input type="text" id="message_id" name="message_id"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    
+    <script>
+        document.getElementById("createMessageForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            // Get form data
+            var formData = {
+                "account_id": document.getElementById("account_id").value,
+                "sender_number": document.getElementById("sender_number").value,
+                "receiver_number": document.getElementById("receiver_number").value,
+                "message_id": document.getElementById("message_id").value // Add message_id
+            };
+    
+            // Convert form data to JSON
+            var jsonData = JSON.stringify(formData);
+            
+            // Send JSON data via POST request
+            fetch("/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: jsonData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Handle response
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                // Handle error
+            });
+        });
+    </script>
+    
+
+    <h2>Search Messages</h2>
+    <form action="/search" method="GET">
+        <label for="message_id">Message ID:</label><br>
+        <input type="text" id="message_id" name="message_id"><br>
+        <label for="sender_number">Sender Number:</label><br>
+        <input type="text" id="sender_number" name="sender_number"><br>
+        <label for="receiver_number">Receiver Number:</label><br>
+        <input type="text" id="receiver_number" name="receiver_number"><br><br>
+        <input type="submit" value="Search">
+    </form>
+
+    <h2>Get Messages by Account ID</h2>
+    <form id="getMessagesForm" method="GET">
+        <label for="account_id_get">Account ID:</label><br>
+        <input type="text" id="account_id_get" name="account_id"><br><br>
+        <input type="submit" value="Get Messages">
+    </form>
+    
+    <script>
+        document.getElementById("getMessagesForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            // Get account ID from the input field
+            var account_id = document.getElementById("account_id_get").value;
+    
+            // Construct the URL with the account ID
+            var url = "/get/messages/" + account_id;
+    
+            // Redirect to the constructed URL
+            window.location.href = url;
+        });
+    </script>
+    
+</body>
+</html>
