@@ -89,7 +89,7 @@ resource "kubernetes_deployment" "dep" {
 
       spec {
         container {
-          image             = "my-flask-app:latest"
+          image             = "my-flask-app:v4"
           name              = "flask-app"
           image_pull_policy = "IfNotPresent"
 
@@ -140,11 +140,47 @@ resource "kubernetes_deployment" "dep" {
             period_seconds        = 5
             success_threshold     = 1
           }
+
+          # Volume mount for logs
+          volume_mount {
+            name       = "log-volume"
+            mount_path = "/logs"
+          }
+        }
+
+        # Add Fluentd sidecar container
+        container {
+          name  = "fluentd-sidecar"
+          image = "fluent/fluentd:v1.12-debian"
+          image_pull_policy = "IfNotPresent"
+
+          volume_mount {
+            name       = "log-volume"
+            mount_path = "/logs"
+          }
+        }
+
+        # Define volumes
+        volume {
+          name = "log-volume"
+          empty_dir {}
         }
       }
     }
   }
 }
+
+resource "kubernetes_config_map" "fluentd_config" {
+  metadata {
+    name      = "fluentdconf"
+    namespace = "plivo-task"
+  }
+
+  data = {
+    "fluent.conf" = templatefile("${path.module}/fluentd.conf.tpl", {})
+  }
+}
+
 
 
 resource "kubernetes_service" "flask_app" {

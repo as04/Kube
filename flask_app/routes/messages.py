@@ -4,10 +4,14 @@ from flask import Blueprint, jsonify, request
 from models import database
 import uuid
 import logging
+from logging_config import setup_logging
+
 
 messages_bp = Blueprint("messages", __name__)
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+logger = setup_logging()
+
+# logging.basicConfig(level=logging.INFO)
+# logger = logging.getLogger(__name__)
 
 @messages_bp.route("/get/messages/<account_id>")
 def get_messages(account_id):

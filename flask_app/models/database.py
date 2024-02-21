@@ -3,8 +3,12 @@
 import mysql.connector
 import logging
 import os
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from logging_config import setup_logging
+
+
+# logging.basicConfig(level=logging.INFO)
+# logger = logging.getLogger(__name__)
+logger = setup_logging()
 
 
 # Define the connection parameters for MySQL
