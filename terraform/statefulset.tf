@@ -76,44 +76,10 @@ resource "kubernetes_stateful_set" "mysql" {
   }
 }
 
-resource "kubernetes_secret" "mysql_secret" {
-  metadata {
-    name      = "mysql-secret"
-    namespace = "plivo-task"
-  }
-
-  data = {
-    root-password = base64encode("admin")
-    database-name = base64encode("messages_db")
-    user          = base64encode("root")
-    password      = base64encode("admin")
-  }
-}
 
 data "kubernetes_secret" "mysql_secret" {
   metadata {
     name      = "mysql-secret"
     namespace = "plivo-task"
-  }
-}
-
-resource "kubernetes_service" "mysql_service" {
-  metadata {
-    name      = "mysql-service"
-    namespace = "plivo-task"
-  }
-
-  spec {
-    selector = {
-      app = "mysql-kube"
-    }
-
-    port {
-      protocol    = "TCP"
-      port        = 3306
-      target_port = 3306
-    }
-
-    cluster_ip = null
   }
 }
