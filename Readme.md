@@ -44,7 +44,7 @@ Follow these steps to run the Flask application locally using Docker:
 
     You can run kubectl commands to check that all service, deployment, pods, ingress are running as expected.
 
-#Notes: 
+# Notes: 
 1. I have also created terraform code to deploy Jenkins.
 2. This is a basic module. A lot of necessary improvements on security practices and modularising can be done.
    - Storing the tfstate in S3.
