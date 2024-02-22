@@ -6,10 +6,10 @@ resource "kubernetes_secret" "mysql_secret" {
   }
 
   data = {
-    root-password = base64encode("admin")
-    database-name = base64encode("messages_db")
-    user          = base64encode("root")
-    password      = base64encode("admin")
+    root-password = "<root_password>"
+    database-name = "messages_db"
+    user          = "<root>"
+    password      = "<password>"
   }
 }
 

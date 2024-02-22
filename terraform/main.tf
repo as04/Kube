@@ -29,7 +29,3 @@ module "db" {
 module "alerts" {
   source = "./alerts"
 }
-
-module "pipeline" {
-  source = "./pipeline"
-}
