@@ -31,7 +31,7 @@ Follow these steps to run the Flask application locally using Docker:
 3. **Config changes**:
   - Replace the image name in the app deployment resource. (This should ideally be more modularised. You should be able to give all info to terraform in the config file.)
   - MySql Connections: 
-    \# Replace these fields from  terrafor/db/main.tf config resource 
+    \# Replace these fields from  terraform/db/main.tf config resource 
     This should ideally be more modularised. You should be able to give all info to terraform in the config file.
   - Push it to a repository like DockerHub (push it to minikube in case of local cluster)
 
