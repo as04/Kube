@@ -24,14 +24,14 @@ Follow these steps to run the Flask application locally using Docker:
   - Build a Dockerfile for you app
   - Build docker image
    ```bash
-   docker build -t <image_name>:v1 .
+      docker build -t <image_name>:v1 .
+
+3. Config changes
   - replace the image name in the app deployment resource. (This should ideally be more modularised. You should be able to give all info to terraform in the config file.)
-  - Push it to a repository like DockerHub (push it to minikube in case of local cluster)
-
-3. **MySQL Connection**:
-
+  - MySql Connections: 
     \# Replace these fields from  terrafor/db/main.tf config resource 
     This should ideally be more modularised. You should be able to give all info to terraform in the config file.
+  - Push it to a repository like DockerHub (push it to minikube in case of local cluster)
 
 4. **Run terraform code to deploy app, its corresponding db, prometheus and fluentd**:
 
