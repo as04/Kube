@@ -40,6 +40,7 @@ Follow these steps to run the Flask application locally using Docker:
    ```bash
     terraform plan
     terraform apply
+   ```
 
     You can run kubectl commands to check that all service, deployment, pods, ingress are running as expected.
 
