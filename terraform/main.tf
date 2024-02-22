@@ -18,50 +18,18 @@ resource "kubernetes_namespace" "ns" {
   }
 }
 
-# resource "kubernetes_deployment" "dep" {
-#   metadata {
-#     name = "flask-app-deployment"
-#     labels = {
-#       app = "flask-app"
-#     }
-#     namespace = "plivo-task"
-#   }
+module "app" {
+  source = "./app"
+}
 
-#   spec {
-#     replicas = 1
+module "db" {
+  source = "./db"
+}
 
-#     selector {
-#       match_labels = {
-#         app = "flask-app"
-#       }
-#     }
+module "alerts" {
+  source = "./alerts"
+}
 
-#     template {
-#       metadata {
-#         labels = {
-#           app = "flask-app"
-#         }
-#       }
-
-#       spec {
-#         container {
-#           image = "my-flask-app:latest"
-#           name  = "flask-app"
-#           image_pull_policy = "IfNotPresent"
-
-#         #   resources {
-#         #     limits = {
-#         #       cpu    = "0.5"
-#         #       memory = "512Mi"
-#         #     }
-#         #     requests = {
-#         #       cpu    = "250m"
-#         #       memory = "50Mi"
-#         #     }
-#         #   }
-#         }
-#       }
-#     }
-#   }
-# }
-
+module "pipeline" {
+  source = "./pipeline"
+}

@@ -1,4 +1,4 @@
-# prometheus-config.tf
+# prometheus config
 resource "kubernetes_config_map" "prometheus_config" {
   metadata {
     name      = "prometheus-config"
@@ -10,7 +10,7 @@ resource "kubernetes_config_map" "prometheus_config" {
   }
 }
 
-# prometheus-deployment.tf
+# prometheus deployment
 resource "kubernetes_deployment" "prometheus_deployment" {
   metadata {
     name      = "prometheus-deployment"
@@ -58,7 +58,7 @@ resource "kubernetes_deployment" "prometheus_deployment" {
   }
 }
 
-# prometheus-service.tf
+# prometheus service
 resource "kubernetes_service" "prometheus_service" {
   metadata {
     name      = "prometheus-service"
